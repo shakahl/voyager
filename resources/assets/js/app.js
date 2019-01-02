@@ -8,7 +8,6 @@ window.SimpleMDE = require('simplemde');
 window.tooltip = require('./bootstrap-tooltip');
 window.MediaManager = require('./media');
 require('dropzone');
-require('./readmore');
 require('./jquery-match-height');
 require('./bootstrap-toggle');
 require('./jquery-cookie');
@@ -37,12 +36,6 @@ $(document).ready(function () {
     $('.side-menu').perfectScrollbar();
 
     $('#voyager-loader').fadeOut();
-    $('.readmore').readmore({
-        collapsedHeight: 60,
-        embedCSS: true,
-        lessLink: '<a href="#" class="readm-link">Read Less</a>',
-        moreLink: '<a href="#" class="readm-link">Read More</a>',
-    });
 
     $(".hamburger, .navbar-expand-toggle").on('click', function () {
         appContainer.toggleClass("expanded");
@@ -55,6 +48,32 @@ $(document).ready(function () {
     });
 
     $('select.select2').select2({width: '100%'});
+    $('select.select2-ajax').each(function() {
+        $(this).select2({
+            width: '100%',
+            ajax: {
+                url: $(this).data('get-items-route'),
+                data: function (params) {
+                    var query = {
+                        search: params.term,
+                        type: $(this).data('get-items-field'),
+                        page: params.page || 1
+                    }
+                    return query;
+                }
+            }
+        });
+
+        $(this).on('select2:select',function(e){
+            var data = e.params.data;
+            $(e.currentTarget).find("option[value='" + data.id + "']").attr('selected','selected');;
+        });
+
+        $(this).on('select2:unselect',function(e){
+            var data = e.params.data;
+            $(e.currentTarget).find("option[value='" + data.id + "']").attr('selected',false);;
+        });
+    });
     $('select.select2-taggable').select2({
         width: '100%',
         tags: true,
@@ -102,6 +121,18 @@ $(document).ready(function () {
 
     $(".side-menu .nav .dropdown").on('show.bs.collapse', function () {
         return $(".side-menu .nav .dropdown .collapse").collapse('hide');
+    });
+    
+    $('.panel-collapse').on('hide.bs.collapse', function(e) {
+        var target = $(event.target);
+        if (!target.is('a')) {
+            target = target.parent();
+        }
+        if (!target.hasClass('collapsed')) {
+            return;
+        }
+        e.stopPropagation();
+        e.preventDefault();
     });
 
     $(document).on('click', '.panel-heading a.panel-action[data-toggle="panel-collapse"]', function (e) {

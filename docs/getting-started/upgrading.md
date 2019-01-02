@@ -57,6 +57,22 @@ Also, the option
 
 was added. This allows you to exclude Voyagers migration-files from loading when running `php artisan migrate`.
 
+You can now define an array of mimetypes which are allowed to be uploaded through the media-manager.
+```php
+'allowed_mimetypes' => '*', //All types can be uploaded
+/*'allowed_mimetypes' => [
+  'image/jpeg',
+  'image/png',
+  'image/gif',
+  'image/bmp',
+  'video/mp4',
+],*/
+```
+
+### Deprecation
+`can`, `canOrAbort`, `canOrFail` in the Voyager facade were all removed in favor of Policies and Gates.  
+Please refer to the [Laravel documentation](https://laravel.com/docs/authorization).
+
 ### **Final Steps**
 
 Next, you may want to be sure that you have all the latest published assets. To re-publish the voyager assets you can run the following command:
@@ -74,4 +90,3 @@ php artisan view:clear
 ## Troubleshooting
 
 Be sure to ask us on our slack channel if you are experiencing any issues and we will try and assist. Thanks.
-

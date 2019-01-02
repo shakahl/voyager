@@ -58,7 +58,7 @@ abstract class Controller extends BaseController
             if (!$request->hasFile($row->field) && !$request->has($row->field) && $row->type !== 'checkbox') {
                 // if the field is a belongsToMany relationship, don't remove it
                 // if no content is provided, that means the relationships need to be removed
-                if ((isset($row->details->type) && $row->details->type !== 'belongsToMany') || $row->field !== 'user_belongsto_role_relationship') {
+                if (isset($row->details->type) && $row->details->type !== 'belongsToMany') {
                     continue;
                 }
             }
@@ -108,6 +108,14 @@ abstract class Controller extends BaseController
                 $multi_select[] = ['model' => $row->details->model, 'content' => $content, 'table' => $row->details->pivot_table];
             } else {
                 $data->{$row->field} = $content;
+            }
+        }
+
+        if (isset($data->additional_attributes)) {
+            foreach ($data->additional_attributes as $attr) {
+                if ($request->has($attr)) {
+                    $data->{$attr} = $request->{$attr};
+                }
             }
         }
 

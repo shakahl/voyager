@@ -1,6 +1,6 @@
 # BREAD Builder
 
-When adding or editing the current BREAD for a database table you will first see the BREAD info which allows you to set the Display Names, slug, icon, Model and Controller Namespace, Policy Name. You can also choose if you would like to Generate permissions for that BREAD type.
+When adding or editing the current BREAD for a database table you will first see the BREAD info which allows you to set the Display Names, slug, icon, `Model` and Controller Namespace, Policy Name. You can also choose if you would like to Generate permissions for that BREAD type.
 
 ![](../.gitbook/assets/bread_details.png)
 
@@ -201,7 +201,7 @@ This will automatically generate the slug from the input of the `title` field. I
 
 Using the BREAD builder you can easily create Relationships between tables. At the bottom of the page you will see a new button that says 'Create Relationship'
 
-![](../.gitbook/assets/bread_relationship%20%281%29.png)
+![](../.gitbook/assets/bread_relationship.png)
 
 {% hint style="info" %}
 **Notice**  
@@ -212,13 +212,29 @@ If you have not yet created the BREAD for the table yet, it will need to be crea
 
 So, after the BREAD has already been created you will then be able to create a new relationship. After you click on the 'Create a Relationship' button. You will see a new Modal window that looks like the following:
 
-![](../.gitbook/assets/bread_relationship_form%20%281%29.png)
+![](../.gitbook/assets/bread_relationship_form.png)
 
 You will first specify which type of relationship this is going to be, then you will select the table you are referencing and which Namespace that belongs to that table. You will then select which row combines those tables.
 
 You can also specify which columns you would like to see in the dropdown or the multi-select.
 
 Now, you can easily create `belongsTo`, `belongsToMany`, `hasOne`, and `hasMany` relationships directly in Voyager.
+
+## Tagging
+
+Tagging gives you the possibility to add new items to a Belongs-To-Many relationship directly when editing or adding a BREAD.
+
+To activate this function, you simply have to enable `Tagging` in the relationship details
+
+![](../.gitbook/assets/tagging.jpg)
+
+After that you can enter a free-text into the select and hit enter to save a new relationship.
+
+{% hint style="info" %}
+**Be aware:**
+
+This only stores the `display-column` so you have to make sure that all other fields are either nullable or have a default value.
+{% endhint %}
 
 ## Null Values
 
@@ -265,3 +281,18 @@ The **id** will let you specify a custom id wrapper around your element. example
 </div>
 ```
 
+## Ordering Bread Items
+
+You can define the default order for browsing BREADs and order your BREAD items with drag-and-drop.  
+For this you need to change the settings for your BREAD first:
+
+![](../.gitbook/assets/bread_settings_order.png)
+
+**Order column** is the field in your table where the order is stored as an integer.  
+**Order display column** is the field which is shown in the drag-drop list.  
+**Order direction** the direction in which the field is ordered.
+
+After this you can go to your BREAD-browse page and you will see a button **Order.**  
+Clicking this button will bring you to the page where you can re-arrange your items:
+
+![](../.gitbook/assets/bread_order.png)

@@ -48,17 +48,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Path to the Voyager Assets
-    |--------------------------------------------------------------------------
-    |
-    | Here you can specify the location of the voyager assets path
-    |
-    */
-
-    'assets_path' => '/vendor/tcg/voyager/assets',
-
-    /*
-    |--------------------------------------------------------------------------
     | Storage Config
     |--------------------------------------------------------------------------
     |
@@ -112,11 +101,6 @@ return [
          * Set whether or not the multilingual is supported by the BREAD input.
          */
         'enabled' => false,
-
-        /*
-         * Set whether or not the admin layout default is RTL.
-         */
-        'rtl' => false,
 
         /*
          * Select default language
@@ -222,4 +206,18 @@ return [
          'zoom' => env('GOOGLE_MAPS_DEFAULT_ZOOM', 11),
      ],
 
+    // Activate compass when environment is NOT local
+    'compass_in_production' => false,
+
+    // The allowed mimetypes to be uploaded through the media-manager.
+    'allowed_mimetypes' => '*', //All types can be uploaded
+    /*
+    'allowed_mimetypes' => [
+      'image/jpeg',
+      'image/png',
+      'image/gif',
+      'image/bmp',
+      'video/mp4',
+    ],
+    */
 ];
